@@ -544,3 +544,42 @@ int main()
 
     return 0;
 }
+//cpu sjf
+Write a C/C++ program to simulate SJF CPU scheduling algorithm.
+Program:
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    cout<<"SJF CPU Scheduling\n";
+    cout<<"Enter the number of Process : ";
+    int n;
+    cin>>n;
+    pair<int,int> p[n];
+    for(int i=0; i<n; i++)
+    {
+        cout<<"Burst time of Process P"<<(i+1)<<" : ";
+        cin>>p[i].first;
+        p[i].second = i;
+    }
+    int wait[n],tat[n];
+    sort(p,p+n);
+    int crntTime = 0;
+    for(int i=0; i<n; i++)
+    {
+        int ind = p[i].second;
+        wait[ind] = crntTime;
+        crntTime += p[i].first;
+        tat[ind] = crntTime;
+    }
+    cout<<"process waitTime\ttat\n";
+    double tot_wt = 0,tot_tat = 0;
+    for(int i=0; i<n; i++)
+    {
+        cout<<i + 1<<"\t\t"<<wait[i]<<"\t\t"<<tat[i]<<endl;
+        tot_wt += wait[i];
+        tot_tat += tat[i];
+    }
+    cout<<"avg Wait Time\tavg Tat\n";
+    cout<<tot_wt/(double)n<<"\t\t"<<tot_tat/(double)n<<endl;
+}
